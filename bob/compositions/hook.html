@@ -1,0 +1,75 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Inter", sans-serif;
+      color: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #hook-line {
+      font-size: 104px;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      display: flex;
+      gap: 0.28em;
+      align-items: center;
+      line-height: 1.15;
+    }
+    #hook-slot {
+      position: relative;
+      display: inline-block;
+      width: 4.3em;
+      height: 1.15em;
+      overflow: hidden;
+    }
+    .hook-opt {
+      position: absolute;
+      left: 0;
+      top: 0;
+      white-space: nowrap;
+      color: #334488;
+    }
+    #hook-sub {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 640px;
+      text-align: center;
+      font-size: 44px;
+      font-weight: 400;
+      color: #555;
+    }
+  </style>
+  <div id="root" data-composition-id="hook" data-width="1920" data-height="1080">
+    <div id="hook-line">
+      <span id="hook-every">Every</span>
+      <span id="hook-slot" data-layout-allow-overflow data-layout-allow-overlap>
+        <span class="hook-opt" id="hook-o1" data-layout-allow-overlap>tutorial.</span>
+        <span class="hook-opt" id="hook-o2" data-layout-allow-overlap>doc.</span>
+        <span class="hook-opt" id="hook-o3" data-layout-allow-overlap>demo.</span>
+        <span class="hook-opt" id="hook-o4" data-layout-allow-overlap>test.</span>
+      </span>
+    </div>
+    <div id="hook-sub">needs a domain nobody owns.</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+        const opts = ["#hook-o1", "#hook-o2", "#hook-o3", "#hook-o4"];
+    opts.slice(1).forEach((id) => tl.set(id, { yPercent: 110 }, 0));
+    let t = 0;
+    opts.forEach((id, i) => {
+      tl.fromTo(id, { yPercent: i === 0 ? 0 : 110, filter: i === 0 ? "blur(0px)" : "blur(6px)" }, { yPercent: 0, filter: "blur(0px)", duration: 0.22, ease: "expo.out" }, t);
+      if (i < opts.length - 1) {
+        tl.to(id, { yPercent: -110, filter: "blur(6px)", duration: 0.14, ease: "power3.in" }, t + 0.3);
+        t += 0.38;
+      }
+    });
+    tl.fromTo("#hook-sub", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 1.2);
+    // exit: whip up into the browser
+    tl.to(["#hook-line", "#hook-sub"], { y: -160, opacity: 0, filter: "blur(10px)", duration: 0.25, ease: "power3.in", stagger: 0.04 }, 2.62);
+    window.__timelines["hook"] = tl;
+  </script>
+</template>
