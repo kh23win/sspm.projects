@@ -1,0 +1,60 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Inter", sans-serif;
+      color: #111;
+    }
+    #end-fill {
+      position: absolute;
+      inset: 0;
+      background: #334488;
+      clip-path: circle(0% at 50% 50%);
+    }
+    #end-stack {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 34px;
+    }
+    #end-mark {
+      font-size: 132px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+    }
+    #end-tag {
+      font-size: 42px;
+      color: #dfe4f5;
+    }
+    #end-cta {
+      margin-top: 18px;
+      padding: 20px 48px;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #334488;
+      font-size: 36px;
+      font-weight: 700;
+    }
+  </style>
+  <div id="root" data-composition-id="endcard" data-width="1920" data-height="1080">
+    <div id="end-fill"></div>
+    <div id="end-stack">
+      <div id="end-mark">example.com</div>
+      <div id="end-tag">The domain made for examples.</div>
+      <div id="end-cta">Learn more at iana.org</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#end-fill", { clipPath: "circle(0% at 50% 50%)" }, { clipPath: "circle(80% at 50% 50%)", duration: 0.35, ease: "power2.inOut" }, 0);
+    tl.fromTo("#end-mark", { opacity: 0.3, filter: "blur(10px)", scale: 1.06 }, { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.4, ease: "expo.out" }, 0.2);
+    tl.fromTo("#end-tag", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 0.45);
+    tl.fromTo("#end-cta", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 0.6);
+    window.__timelines["endcard"] = tl;
+  </script>
+</template>
